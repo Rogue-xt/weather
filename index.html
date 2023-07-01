@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+        <title>Document</title>
+        <style>
+       p{
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+       }
+    </style>
+    </head>
+    <body>
+        <div class="container mt-5 bg-primar " style="background-color: rgb(223,
+            212, 235);height: 700px;border-radius: 8px;">
+            <h2 class="container" style="font-family: Impact, Haettenschweiler,
+                'Arial Narrow Bold', sans-serif;">WEATHER</h2>
+            <div class="container form-control" style="display:
+                flex;justify-content:safe;">
+                <input id="cit" type="text" class="form-control w-25
+                    bg-light-subtle border" placeholder="Enter City">
+                <button type="button" onclick="searchCity()" class="btn
+                    btn-primary ">Search</button>
+                <button type="button" onclick="clear2()" class="btn btn-danger ">Clear</button>
+                <img style=" width: 60px;border-radius: 5px;"
+                    src="./weatherimg.jpeg" alt="img">
+                <h3 class="" id="ci"></h3>
+
+            </div>
+            <div class="container mt-4 border border-5 shadow-lg" style="
+                background-color:rgb(162, 209, 183);height: 500px; font-family:
+                Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+                <h4>COUNTRY</h4>
+                <p id="co">.</p>
+                <h4>TEMPERATURE</h4>
+                <p id="te">.</p>
+                <h4>HUMIDITY</h4>
+                <p id="hu">.</p>
+                <h4>WIND</h4>
+                <p id="wi">.</p>
+                <h4>PRESSURE</h4>
+                <p id="pr">.</p>
+
+            </div>
+        </div>
+    </body>
+    <script>
+    function searchCity(){
+        city=cit.value
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=5fe36b192ffd1c36dffb6752bc1722b2`)
+        .then(data=>data.json()).then(data=>display(data))
+
+        function display(cdata){
+            city1=cdata.name
+            country1=cdata.sys.country
+            humidity1=cdata.main.humidity
+            wind1=cdata.wind.speed
+            pressure1=cdata.main.pressure
+            temp1=cdata.main.temp
+
+            ci.innerHTML=`<p>${city1}</p>`
+            co.innerHTML=`<p>${country1}</p>`
+            hu.innerHTML=`<p>${humidity1}%</p>`
+            wi.innerHTML=`<p>${wind1}Kmph</p>`
+            pr.innerHTML=`<p>${pressure1}</p>`
+            te.innerHTML=`<p>${temp1}.F</p>`
+           
+        }
+       
+    }
+     function clear2(){
+            cit.value=""
+            ci.innerHTML=""
+            co.innerHTML="."
+            hu.innerHTML="."
+            wi.innerHTML="."
+            pr.innerHTML="."
+            te.innerHTML="."
+           }
+
+</script>
+</html>
